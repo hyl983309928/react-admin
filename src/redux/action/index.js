@@ -14,3 +14,9 @@ export const updateToken = (token) => {
     token
   }
 }
+
+export const signOut = () => {
+  return {
+    type: type.SIGN_OUT
+  }
+}

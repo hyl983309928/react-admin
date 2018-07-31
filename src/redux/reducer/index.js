@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 
 let initialState = {
   userinfo: {},
-  token: '123123'
+  token: window.localStorage.getItem('token') || ''
 }
 
 const handleApp = (state = initialState, action) => {
@@ -14,9 +14,16 @@ const handleApp = (state = initialState, action) => {
         userinfo: action.userinfo
       }
     case type.UPDARE_TOKEN:
+      window.localStorage.setItem('token', action.token)
       return {
         ...state,
         token: action.token
+      }
+    case type.SIGN_OUT:
+      window.localStorage.removeItem('token')
+      return {
+        ...state,
+        token: ''
       }
     default:
       return state
