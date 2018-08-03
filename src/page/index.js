@@ -6,7 +6,7 @@ import Bundle from '@/components/Bundle'
 
 export const Store = (props) => {
   return (
-    <Bundle load={() => import('@/page/user/Store')}>
+    <Bundle load={() => import('./user/Store')}>
       {(Component) => <Component {...props}/>}
     </Bundle>
   )
@@ -14,7 +14,23 @@ export const Store = (props) => {
 
 export const OneselfCenter = (props) => {
   return (
-    <Bundle load={() => import('@/page/user/OneselfCenter')}>
+    <Bundle load={() => import('./user/OneselfCenter')}>
+      {(Component) => <Component {...props}/>}
+    </Bundle>
+  )
+}
+
+export const DataInfo = (props) => {
+  return (
+    <Bundle load={() => import('./data/Info')}>
+      {(Component) => <Component {...props}/>}
+    </Bundle>
+  )
+}
+
+export const Share = (props) => {
+  return (
+    <Bundle load={() => import('./data/share.tsx')}>
       {(Component) => <Component {...props}/>}
     </Bundle>
   )

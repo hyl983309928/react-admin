@@ -1,6 +1,8 @@
 
-export const UPDARE_USERINFO = 'UPDARE_USERINFO'
+export const UPDATE_USERINFO = 'UPDATE_USERINFO'
 
-export const UPDARE_TOKEN = 'UPDARE_TOKEN'
+export const UPDATE_TOKEN = 'UPDATE_TOKEN'
 
 export const SIGN_OUT = 'SIGN_OUT'
+
+export const UPDATE_SIDEBAR_OPEN = 'UPDATE_SIDEBAR_OPEN'

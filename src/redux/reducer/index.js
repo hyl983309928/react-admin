@@ -3,17 +3,18 @@ import { combineReducers } from 'redux'
 
 let initialState = {
   userinfo: {},
-  token: window.localStorage.getItem('token') || ''
+  token: window.localStorage.getItem('token') || '',
+  sidebarOpen: true
 }
 
 const handleApp = (state = initialState, action) => {
   switch (action.type) {
-    case type.UPDARE_USERINFO:
+    case type.UPDATE_USERINFO:
       return {
         ...state,
         userinfo: action.userinfo
       }
-    case type.UPDARE_TOKEN:
+    case type.UPDATE_TOKEN:
       window.localStorage.setItem('token', action.token)
       return {
         ...state,
@@ -24,6 +25,11 @@ const handleApp = (state = initialState, action) => {
       return {
         ...state,
         token: ''
+      }
+    case type.UPDATE_SIDEBAR_OPEN:
+      return {
+        ...state,
+        sidebarOpen: !state.sidebarOpen
       }
     default:
       return state

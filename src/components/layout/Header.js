@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import { Breadcrumb, Dropdown, Menu, Icon } from 'antd';
 import { Link, withRouter } from 'react-router-dom'
-import { signOut } from '@/redux/action/index.js'
-import PropTypes from 'prop-types'
+import { signOut, updateSidebarOpen } from '@/redux/action/index.js'
 import routerConfig from '@/router/config.js'
+import { connect } from 'react-redux'
 
 class Header extends Component{
   state = {
     breadcrumbList: []
-  }
-  static contextTypes = {
-    store: PropTypes.object
   }
   componentDidMount () {
   }
@@ -27,7 +24,7 @@ class Header extends Component{
     }
   }
   signOut () {
-    this.context.store.dispatch(signOut())
+    this.props.signOut()
     this.props.history.push('/login')
   }
   render () {
@@ -47,8 +44,9 @@ class Header extends Component{
       </Menu>
     )
     return (
-      <header className={'layout-header'}>
+      <header className={'layout-header'} style={{ left: this.props.sidebarOpen ? '200px' : '80px' }}>
         <div className={'layout-header-breadcrumb'}>
+          <Icon type={ this.props.sidebarOpen ? 'menu-fold' : 'menu-unfold' }  style={{marginRight: '15px', marginTop: '2px', fontSize: '16px'}} className={'cursor-pointer'} onClick={this.props.updateSidebarOpen} />
           <Breadcrumb>
             <Breadcrumb.Item><Link to={'/app'}>首页</Link></Breadcrumb.Item>
             {
@@ -74,4 +72,17 @@ class Header extends Component{
   }
 }
 
-export default withRouter(Header)
+function mapState(state){
+  return{
+    sidebarOpen: state.App.sidebarOpen
+  }
+}
+
+function mapDispatch(dispatch){
+  return {
+    updateSidebarOpen: () => dispatch(updateSidebarOpen()),
+    signOut: () => dispatch(signOut())
+  }
+}
+
+export default withRouter(connect(mapState, mapDispatch)(Header))

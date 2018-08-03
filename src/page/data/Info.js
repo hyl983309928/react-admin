@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class OneselfCenter extends Component{
+export default class Store extends Component{
   render () {
     return (
       <div className={'is-content-block'}>
-        oneselfCenter
+        123
       </div>
     )
   }

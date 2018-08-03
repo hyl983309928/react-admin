@@ -106,7 +106,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', '.tsx', '.ts'],
     alias: {
       
       // Support React Native Web
@@ -130,6 +130,7 @@ module.exports = {
       // We are waiting for https://github.com/facebookincubator/create-react-app/issues/2176.
       // { parser: { requireEnsure: false } },
 
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
@@ -163,6 +164,7 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
+
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
@@ -177,6 +179,20 @@ module.exports = {
               // directory for faster rebuilds.
               cacheDirectory: true,
             },
+          },
+
+          {
+            test: /\.(ts|tsx)$/,
+            include: paths.appSrc,
+            use: [
+              {
+                loader: require.resolve('ts-loader'),
+                options: {
+                  // disable type checker - we will use it in fork plugin
+                  transpileOnly: true,
+                },
+              },
+            ],
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
